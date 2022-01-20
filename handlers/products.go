@@ -1,18 +1,3 @@
-// Package classification of Product API
-//
-// Documentation for Product API
-//
-//		Schemes: http
-// 		BasePath: /
-// 		Version: 1.0.0
-//
-// 		Consumes:
-// 		- application/json
-//
-// 		Produces:
-// 		- application/json
-//
-// swagger:meta
 package handlers
 
 import (
@@ -42,4 +27,14 @@ func (p *Products) GetProductID(r *http.Request) int {
 		panic(err)
 	}
 	return id
+}
+
+// GenericError is a generic error message returned by a server
+type GenericError struct {
+	Message string `json:"message"`
+}
+
+// ValidationError is a collection of validation error messages
+type ValidationError struct {
+	Messages []string `json:"messages"`
 }

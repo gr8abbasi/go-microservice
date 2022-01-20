@@ -6,6 +6,13 @@ import (
 	"github.com/gr8abbasi/go-microservice/data"
 )
 
+// swagger:route PUT /products/{id} products updateProduct
+// Update a products details
+// responses:
+//	201: noContentResponse
+//  404: errorResponse
+//  501: errorResponse
+
 //PUT request to update product
 func (p *Products) Update(rw http.ResponseWriter, r *http.Request) {
 	p.l.Println("Handle PUT Product")

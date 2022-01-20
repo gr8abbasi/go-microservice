@@ -1,40 +1,52 @@
 package data
 
 import (
-	"encoding/json"
 	"fmt"
-	"io"
 	"regexp"
 	"time"
 
 	"github.com/go-playground/validator/v10"
 )
 
+// Product defines the structure for an API product
+// swagger:model
 type Product struct {
-	ID          int     `json:"id"`
-	Name        string  `json:"name" validate:"required"`
-	Description string  `json:"description"`
-	Price       float32 `json:"price" validate:"gt=0"`
-	SKU         string  `json:"sku" validate:"required,sku"`
-	CreatedOn   string  `json:"_"`
-	UpdatedOn   string  `json:"_"`
-	DeletedOn   string  `json:"_"`
+	// the id for the product
+	//
+	// required: false
+	// min: 1
+	ID int `json:"id"` // Unique identifier for the product
+
+	// the name for this poduct
+	//
+	// required: true
+	// max length: 255
+	Name string `json:"name" validate:"required"`
+
+	// the description for this poduct
+	//
+	// required: false
+	// max length: 10000
+	Description string `json:"description"`
+
+	// the price for the product
+	//
+	// required: true
+	// min: 0.01
+	Price float32 `json:"price" validate:"required,gt=0"`
+
+	// the SKU for the product
+	//
+	// required: true
+	// pattern: [a-z]+-[0-9]+
+	SKU       string `json:"sku" validate:"sku"`
+	CreatedOn string `json:"_"`
+	UpdatedOn string `json:"_"`
+	DeletedOn string `json:"_"`
 }
 
 //Collection of Proucts
 type Products []*Product
-
-//Encode ToJSON
-func (p *Products) ToJSON(w io.Writer) error {
-	encoder := json.NewEncoder(w)
-	return encoder.Encode(p)
-}
-
-//Decode FromJSON
-func (p *Product) FromJSON(r io.Reader) error {
-	decoder := json.NewDecoder(r)
-	return decoder.Decode(p)
-}
 
 // Validate Prouct
 func (p *Product) Validate() error {
