@@ -67,9 +67,9 @@ func getNextID() int {
 	return lp.ID + 1
 }
 
-//Update product
+//Update product by ID
 func UpdateProduct(id int, p *Product) error {
-	_, pos, err := findProductById(id)
+	_, pos, err := findIndexByProductId(id)
 	if err != nil {
 		return err
 	}
@@ -80,7 +80,19 @@ func UpdateProduct(id int, p *Product) error {
 	return nil
 }
 
-func findProductById(id int) (*Product, int, error) {
+//Delete product by ID
+func DeleteProduct(id int) error {
+	_, pos, err := findIndexByProductId(id)
+	if err != nil {
+		return err
+	}
+
+	productList = append(productList[:pos], productList[pos+1:]...)
+
+	return nil
+}
+
+func findIndexByProductId(id int) (*Product, int, error) {
 	for i, p := range productList {
 		if p.ID == id {
 			return p, i, nil
