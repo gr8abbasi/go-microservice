@@ -68,15 +68,11 @@ func GetProducts() Products {
 }
 
 //Add product
-func AddProduct(p *Product) {
-	p.ID = getNextID()
-	productList = append(productList, p)
-}
-
-//get product next ID
-func getNextID() int {
-	lp := productList[len(productList)-1]
-	return lp.ID + 1
+func AddProduct(p Product) {
+	// get the next id in sequence
+	maxID := productList[len(productList)-1].ID
+	p.ID = maxID + 1
+	productList = append(productList, &p)
 }
 
 //Update product by ID

@@ -8,7 +8,7 @@ import (
 	"github.com/gr8abbasi/go-microservice/data"
 )
 
-func (p Products) MiddlewareValidateProduct(next http.Handler) http.Handler {
+func (p *Products) MiddlewareValidateProduct(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(rw http.ResponseWriter, r *http.Request) {
 		prod := &data.Product{}
 

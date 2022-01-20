@@ -15,9 +15,9 @@ import (
 func (p *Products) ListAll(rw http.ResponseWriter, r *http.Request) {
 	p.l.Println("Handle Get Products")
 
-	lp := data.GetProducts()
+	prods := data.GetProducts()
 
-	err := data.ToJSON(lp, rw)
+	err := data.ToJSON(prods, rw)
 	if err != nil {
 		http.Error(rw, "Unable to marshal JSON", http.StatusInternalServerError)
 	}
