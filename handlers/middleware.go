@@ -10,8 +10,9 @@ import (
 
 func (p Products) MiddlewareValidateProduct(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(rw http.ResponseWriter, r *http.Request) {
-		prod := data.Product{}
-		err := prod.FromJSON(r.Body)
+		prod := &data.Product{}
+
+		err := data.FromJSON(prod, r.Body)
 		if err != nil {
 			p.l.Println("[ERROR] deserializing product", err)
 			http.Error(rw, "Error reading product", http.StatusBadRequest)

@@ -6,13 +6,18 @@ import (
 	"github.com/gr8abbasi/go-microservice/data"
 )
 
-//GET request to get all products
+// swagger:route GET /products products listProducts
+// Returns a list of products
+// responses:
+// 	200: productsResponse
+
+// ListAll return all products from database
 func (p *Products) ListAll(rw http.ResponseWriter, r *http.Request) {
 	p.l.Println("Handle Get Products")
 
 	lp := data.GetProducts()
 
-	err := lp.ToJSON(rw)
+	err := data.ToJSON(lp, rw)
 	if err != nil {
 		http.Error(rw, "Unable to marshal JSON", http.StatusInternalServerError)
 	}
