@@ -19,9 +19,9 @@ func (p *Products) Update(rw http.ResponseWriter, r *http.Request) {
 
 	id := p.GetProductID(r)
 
-	prod := r.Context().Value(KeyProduct{}).(data.Product)
+	prod := r.Context().Value(KeyProduct{}).(*data.Product)
 
-	err := data.UpdateProduct(id, &prod)
+	err := data.UpdateProduct(id, prod)
 	if err == data.ErrProductNotFound {
 		http.Error(rw, "Product not Found!", http.StatusNotFound)
 		return

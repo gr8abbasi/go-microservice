@@ -2,13 +2,12 @@ package handlers
 
 import (
 	"context"
-	"fmt"
 	"net/http"
 
 	"github.com/gr8abbasi/go-microservice/data"
 )
 
-func (p Products) MiddlewareValidateProduct(next http.Handler) http.Handler {
+func (p *Products) MiddlewareValidateProduct(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(rw http.ResponseWriter, r *http.Request) {
 		prod := &data.Product{}
 
@@ -19,14 +18,14 @@ func (p Products) MiddlewareValidateProduct(next http.Handler) http.Handler {
 			return
 		}
 
-		err = prod.Validate()
-		if err != nil {
-			p.l.Println("[ERROR] validating product", err)
-			http.Error(
-				rw,
-				fmt.Sprintf("Error validating product: %s", err),
-				http.StatusBadRequest,
-			)
+		// validate the product
+		errs := p.v.Validate(prod)
+		if len(errs) != 0 {
+			p.l.Println("[ERROR] validating product", errs)
+
+			// return the validation messages as an array
+			rw.WriteHeader(http.StatusUnprocessableEntity)
+			data.ToJSON(&ValidationError{Messages: errs.Errors()}, rw)
 			return
 		}
 

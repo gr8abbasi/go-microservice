@@ -2,10 +2,7 @@ package data
 
 import (
 	"fmt"
-	"regexp"
 	"time"
-
-	"github.com/go-playground/validator/v10"
 )
 
 // Product defines the structure for an API product
@@ -48,20 +45,6 @@ type Product struct {
 //Collection of Proucts
 type Products []*Product
 
-// Validate Prouct
-func (p *Product) Validate() error {
-	validator := validator.New()
-	validator.RegisterValidation("sku", validateSku)
-	return validator.Struct(p)
-}
-
-func validateSku(fl validator.FieldLevel) bool {
-	regex := regexp.MustCompile(`[a-z]+-[0-9]+`)
-	matches := regex.FindAllString(fl.Field().String(), -1)
-
-	return len(matches) == 1
-}
-
 //Get all products
 func GetProducts() Products {
 	return productList
@@ -69,14 +52,10 @@ func GetProducts() Products {
 
 //Add product
 func AddProduct(p *Product) {
-	p.ID = getNextID()
+	// get the next id in sequence
+	maxID := productList[len(productList)-1].ID
+	p.ID = maxID + 1
 	productList = append(productList, p)
-}
-
-//get product next ID
-func getNextID() int {
-	lp := productList[len(productList)-1]
-	return lp.ID + 1
 }
 
 //Update product by ID
