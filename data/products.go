@@ -50,6 +50,16 @@ func GetProducts() Products {
 	return productList
 }
 
+//Get single product
+func GetProductById(id int) (*Product, error) {
+	_, pos, err := findIndexByProductId(id)
+	if err != nil {
+		return nil, ErrProductNotFound
+	}
+
+	return productList[pos], nil
+}
+
 //Add product
 func AddProduct(p *Product) {
 	// get the next id in sequence

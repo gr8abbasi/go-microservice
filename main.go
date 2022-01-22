@@ -33,6 +33,7 @@ func main() {
 	// GET route
 	getRouter := sm.Methods(http.MethodGet).Subrouter()
 	getRouter.HandleFunc("/products", ph.ListAll)
+	getRouter.HandleFunc("/products/{id:[0-9]+}", ph.ListProduct)
 
 	// POST route
 	postRouter := sm.Methods(http.MethodPost).Subrouter()
