@@ -115,6 +115,16 @@ paths:
           $ref: '#/responses/errorResponse'
       tags:
       - products
+    get:
+      description: Returns a single product
+      operationId: listProduct
+      responses:
+        "200":
+          $ref: '#/responses/productsResponse'
+        "404":
+          $ref: '#/responses/errorResponse'
+      tags:
+      - products
     put:
       description: Update a products details
       operationId: updateProduct
