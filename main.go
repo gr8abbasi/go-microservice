@@ -10,6 +10,7 @@ import (
 
 	"github.com/go-openapi/runtime/middleware"
 	"github.com/gorilla/mux"
+	"github.com/gr8abbasi/go-microservice/data"
 	"github.com/gr8abbasi/go-microservice/handlers"
 )
 
@@ -21,9 +22,10 @@ func main() {
 
 	// logger
 	l := log.New(os.Stdout, "microservice-log: ", log.LstdFlags)
+	v := data.NewValidation()
 
 	// product handler
-	ph := handlers.NewProducts(l)
+	ph := handlers.NewProducts(l, v)
 
 	// New mux router
 	sm := mux.NewRouter()
