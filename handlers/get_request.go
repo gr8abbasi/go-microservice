@@ -13,6 +13,7 @@ import (
 
 // ListAll return all products from database
 func (p *Products) ListAll(rw http.ResponseWriter, r *http.Request) {
+	rw.Header().Add("Content-Type", "application/json")
 	prods := data.GetProducts()
 
 	err := data.ToJSON(prods, rw)
@@ -25,10 +26,11 @@ func (p *Products) ListAll(rw http.ResponseWriter, r *http.Request) {
 // Returns a single product
 // responses:
 // 	200: productsResponse
-//  404: errorResponse
+//	404: errorResponse
 
 // ListProduct return single products from database
 func (p *Products) ListProduct(rw http.ResponseWriter, r *http.Request) {
+	rw.Header().Add("Content-Type", "application/json")
 	id := p.GetProductID(r)
 
 	prod, err := data.GetProductById(id)

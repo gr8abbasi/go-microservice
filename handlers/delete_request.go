@@ -15,7 +15,7 @@ import (
 
 //DELETE product from database
 func (p *Products) Delete(rw http.ResponseWriter, r *http.Request) {
-	p.l.Println("Handle DELETE Product")
+	rw.Header().Add("Content-Type", "application/json")
 
 	id := p.GetProductID(r)
 

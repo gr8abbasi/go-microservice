@@ -15,7 +15,7 @@ import (
 
 //PUT request to update product
 func (p *Products) Update(rw http.ResponseWriter, r *http.Request) {
-	p.l.Println("Handle PUT Product")
+	rw.Header().Add("Content-Type", "application/json")
 
 	id := p.GetProductID(r)
 
