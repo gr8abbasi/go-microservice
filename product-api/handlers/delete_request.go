@@ -3,25 +3,23 @@ package handlers
 import (
 	"net/http"
 
-	"github.com/gr8abbasi/go-microservice/data"
+	"github.com/gr8abbasi/go-microservice/product-api/data"
 )
 
-// swagger:route PUT /products/{id} products updateProduct
-// Update a products details
+// swagger:route DELETE /products/{id} products deleteProduct
+// Delete a product
 // responses:
 //	201: noContentResponse
 //  404: errorResponse
 //  501: errorResponse
 
-//PUT request to update product
-func (p *Products) Update(rw http.ResponseWriter, r *http.Request) {
+//DELETE product from database
+func (p *Products) Delete(rw http.ResponseWriter, r *http.Request) {
 	rw.Header().Add("Content-Type", "application/json")
 
 	id := p.GetProductID(r)
 
-	prod := r.Context().Value(KeyProduct{}).(*data.Product)
-
-	err := data.UpdateProduct(id, prod)
+	err := data.DeleteProduct(id)
 	if err == data.ErrProductNotFound {
 		http.Error(rw, "Product not Found!", http.StatusNotFound)
 		return
