@@ -6,7 +6,7 @@ import (
 	"strconv"
 
 	"github.com/gorilla/mux"
-	"github.com/gr8abbasi/go-microservice/data"
+	"github.com/gr8abbasi/go-microservice/product-api/data"
 )
 
 type Products struct {

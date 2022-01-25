@@ -4,7 +4,7 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/gr8abbasi/go-microservice/data"
+	"github.com/gr8abbasi/go-microservice/product-api/data"
 )
 
 func (p *Products) MiddlewareValidateProduct(next http.Handler) http.Handler {

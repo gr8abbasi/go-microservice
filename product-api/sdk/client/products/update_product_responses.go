@@ -12,7 +12,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/gr8abbasi/go-microservice/sdk/models"
+	"github.com/gr8abbasi/go-microservice/product-api/sdk/models"
 )
 
 // UpdateProductReader is a Reader for the UpdateProduct structure.

@@ -3,8 +3,8 @@ package main
 import (
 	"testing"
 
-	"github.com/gr8abbasi/go-microservice/sdk/client"
-	"github.com/gr8abbasi/go-microservice/sdk/client/products"
+	"github.com/gr8abbasi/go-microservice/product-api/sdk/client"
+	"github.com/gr8abbasi/go-microservice/product-api/sdk/client/products"
 	"github.com/stretchr/testify/assert"
 )
 

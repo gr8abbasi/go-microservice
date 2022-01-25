@@ -10,10 +10,10 @@ import (
 	httptransport "github.com/go-openapi/runtime/client"
 	"github.com/go-openapi/strfmt"
 
-	"github.com/gr8abbasi/go-microservice/sdk/client/products"
+	"github.com/gr8abbasi/go-microservice/product-api/sdk/client/products"
 )
 
-// Default go microservice HTTP client.
+// Default product API HTTP client.
 var Default = NewHTTPClient(nil)
 
 const (
@@ -28,14 +28,14 @@ const (
 // DefaultSchemes are the default schemes found in Meta (info) section of spec file
 var DefaultSchemes = []string{"http"}
 
-// NewHTTPClient creates a new go microservice HTTP client.
-func NewHTTPClient(formats strfmt.Registry) *GoMicroservice {
+// NewHTTPClient creates a new product API HTTP client.
+func NewHTTPClient(formats strfmt.Registry) *ProductAPI {
 	return NewHTTPClientWithConfig(formats, nil)
 }
 
-// NewHTTPClientWithConfig creates a new go microservice HTTP client,
+// NewHTTPClientWithConfig creates a new product API HTTP client,
 // using a customizable transport config.
-func NewHTTPClientWithConfig(formats strfmt.Registry, cfg *TransportConfig) *GoMicroservice {
+func NewHTTPClientWithConfig(formats strfmt.Registry, cfg *TransportConfig) *ProductAPI {
 	// ensure nullable parameters have default
 	if cfg == nil {
 		cfg = DefaultTransportConfig()
@@ -46,14 +46,14 @@ func NewHTTPClientWithConfig(formats strfmt.Registry, cfg *TransportConfig) *GoM
 	return New(transport, formats)
 }
 
-// New creates a new go microservice client
-func New(transport runtime.ClientTransport, formats strfmt.Registry) *GoMicroservice {
+// New creates a new product API client
+func New(transport runtime.ClientTransport, formats strfmt.Registry) *ProductAPI {
 	// ensure nullable parameters have default
 	if formats == nil {
 		formats = strfmt.Default
 	}
 
-	cli := new(GoMicroservice)
+	cli := new(ProductAPI)
 	cli.Transport = transport
 	cli.Products = products.New(transport, formats)
 	return cli
@@ -98,15 +98,15 @@ func (cfg *TransportConfig) WithSchemes(schemes []string) *TransportConfig {
 	return cfg
 }
 
-// GoMicroservice is a client for go microservice
-type GoMicroservice struct {
+// ProductAPI is a client for product API
+type ProductAPI struct {
 	Products products.ClientService
 
 	Transport runtime.ClientTransport
 }
 
 // SetTransport changes the transport on the client and all its subresources
-func (c *GoMicroservice) SetTransport(transport runtime.ClientTransport) {
+func (c *ProductAPI) SetTransport(transport runtime.ClientTransport) {
 	c.Transport = transport
 	c.Products.SetTransport(transport)
 }
